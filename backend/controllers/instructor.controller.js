@@ -1,14 +1,15 @@
 import { Instructor } from "../models/instructor.model.js";
 import { Lecture } from "../models/lecture.model.js";
+import bcrypt from "bcrypt"
 
 export const createInstructor = async (req, res) => {
   try {
     const { name, email, password , role} = req.body;
-
+    const hashedPassword = await bcrypt.hash(password, 10);
     const instructor = await Instructor.create({
       name,
       email,
-      password,
+      password: hashedPassword,
       role
     });
 

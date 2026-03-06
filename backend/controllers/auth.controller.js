@@ -1,5 +1,6 @@
 import { Instructor } from "../models/instructor.model.js";
 import jwt from "jsonwebtoken"
+import bcrypt from "bcrypt"
 
 export const login = async (req, res) => {
   try {
@@ -14,7 +15,8 @@ export const login = async (req, res) => {
     }
 
     // check password
-    if (user.password !== password) {
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
       return res.status(400).json({
         message: "Invalid email or password"
       });

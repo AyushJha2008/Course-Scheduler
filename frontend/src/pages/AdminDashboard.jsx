@@ -77,6 +77,12 @@ function AdminDashboard() {
           </button>
           </Link>
 
+          <Link  to="/admin/lectures">
+          <button className="block w-full text-left hover:bg-gray-100 p-2 rounded">
+            All Lectures
+          </button>
+          </Link>
+
         </nav>
 
       </div>

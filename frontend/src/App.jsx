@@ -7,6 +7,7 @@ import AddCourse from "./pages/AddCourse";
 import AssignLecture from "./pages/AssignLecture";
 import Courses from "./pages/course";
 import AddInstructor from "./pages/AddInstructor";
+import Lectures from "./pages/Lectures";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         />
         <Route path="/admin/courses" element={<Courses />} />
         <Route path="/admin/add-instructor" element={<AddInstructor />} />
+        <Route path="/admin/lectures" element={<Lectures />} />
       </Routes>
     </BrowserRouter>
   );
