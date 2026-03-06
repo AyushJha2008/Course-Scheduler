@@ -5,6 +5,8 @@ import InstructorDashboard from "./pages/InstructorDashboard";
 import Instructors from "./pages/Instructor";
 import AddCourse from "./pages/AddCourse";
 import AssignLecture from "./pages/AssignLecture";
+import Courses from "./pages/course";
+import AddInstructor from "./pages/AddInstructor";
 
 function App() {
   return (
@@ -20,9 +22,11 @@ function App() {
         <Route path="/admin/add-course" element={<AddCourse />} />
         <Route path="/admin/assign-lecture" element={<AssignLecture />} />
         <Route
-  path="/instructor/dashboard"
-  element={<InstructorDashboard />}
-/>
+          path="/instructor/dashboard"
+          element={<InstructorDashboard />}
+        />
+        <Route path="/admin/courses" element={<Courses />} />
+        <Route path="/admin/add-instructor" element={<AddInstructor />} />
       </Routes>
     </BrowserRouter>
   );

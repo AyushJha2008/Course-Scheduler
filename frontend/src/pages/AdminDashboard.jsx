@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 function AdminDashboard() {
 
@@ -7,6 +8,7 @@ function AdminDashboard() {
 
   return (
     <div className="flex min-h-screen bg-gray-100">
+      <Navbar/>
 
       {/* Sidebar */}
       <div className={`fixed lg:static z-40 w-64 bg-white shadow-md h-full transition-transform 
@@ -29,6 +31,18 @@ function AdminDashboard() {
           <Link  to="/admin/assign-lecture">
           <button className="block w-full text-left hover:bg-gray-100 p-2 rounded">
             Assign Lecture
+          </button>
+          </Link>
+
+          <Link  to="/admin/courses">
+          <button className="block w-full text-left hover:bg-gray-100 p-2 rounded">
+            Courses
+          </button>
+          </Link>
+
+          <Link  to="/admin/add-instructor">
+          <button className="block w-full text-left hover:bg-gray-100 p-2 rounded">
+            Add Instructor
           </button>
           </Link>
         </nav>

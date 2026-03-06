@@ -13,11 +13,15 @@ function Login() {
       email,
       password,
     });
-
     localStorage.setItem("token", res.data.token);
-
+    if (res.data.user.role === "admin") {
+      window.location.href = "/admin";
+    } else {
+      window.location.href = "/instructor/dashboard";
+    }
     alert("Login successful");
   };
+  
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">
