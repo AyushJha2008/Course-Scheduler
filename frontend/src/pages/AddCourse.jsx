@@ -1,5 +1,6 @@
 import { useState } from "react";
 import API from "../api/axios";
+import { useNavigate } from "react-router-dom";
 
 function AddCourse() {
 
@@ -21,9 +22,7 @@ function AddCourse() {
     e.preventDefault();
 
     try {
-
       await API.post("/courses", formData);
-
       alert("Course created successfully");
 
       setFormData({
@@ -36,7 +35,10 @@ function AddCourse() {
     } catch (error) {
       console.log(error);
     }
+    navigate("/admin")
   };
+
+  const navigate = useNavigate()
 
   return (
     <div className="p-4 md:p-6 lg:p-8">

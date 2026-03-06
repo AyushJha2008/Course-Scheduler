@@ -3,12 +3,13 @@ import { Lecture } from "../models/lecture.model.js";
 
 export const createInstructor = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password , role} = req.body;
 
     const instructor = await Instructor.create({
       name,
       email,
-      password
+      password,
+      role
     });
 
     res.status(201).json(instructor);
