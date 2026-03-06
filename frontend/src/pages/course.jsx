@@ -5,14 +5,10 @@ import CourseCard from "../components/CourseCard";
 function Courses() {
 
   const [courses, setCourses] = useState([]);
-
   const fetchCourses = async () => {
     try {
-
       const res = await API.get("/courses");
-
       setCourses(res.data);
-
     } catch (error) {
       console.log(error);
     }

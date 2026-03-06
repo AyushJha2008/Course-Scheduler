@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import API from "../api/axios";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 function AssignLecture() {
+  const navigate = useNavigate()
 
   const [courses, setCourses] = useState([]);
   const [instructors, setInstructors] = useState([]);
@@ -36,12 +39,9 @@ function AssignLecture() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-
       await API.post("/lectures", formData);
-
-      alert("Lecture assigned successfully");
+      toast.success("Lecture assigned successfully");
 
       setFormData({
         courseId: "",
@@ -51,9 +51,10 @@ function AssignLecture() {
 
     } catch (error) {
 
-      alert(error.response?.data?.message || "Error assigning lecture");
+      toast.error(error.response?.data?.message || "Error assigning lecture");
 
     }
+    navigate("/admin")
   };
 
   return (

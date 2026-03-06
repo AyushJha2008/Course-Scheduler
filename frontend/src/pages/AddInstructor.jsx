@@ -1,7 +1,10 @@
 import { useState } from "react";
 import API from "../api/axios";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 function AddInstructor() {
+  const navigate = useNavigate()
 
   const [formData, setFormData] = useState({
     name: "",
@@ -23,7 +26,7 @@ function AddInstructor() {
 
       await API.post("/instructors", formData);
 
-      alert("Instructor created successfully");
+      toast.success("Instructor created successfully");
 
       setFormData({
         name: "",
@@ -33,8 +36,9 @@ function AddInstructor() {
 
     } catch (error) {
       console.log(error);
-      alert("Error creating instructor");
+      toast.error("Error creating instructor");
     }
+    navigate("/admin")
   };
 
   return (

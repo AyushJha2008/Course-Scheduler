@@ -2,7 +2,6 @@ import { useState } from "react";
 import API from "../api/axios";
 
 function Login() {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -19,7 +18,7 @@ function Login() {
     } else {
       window.location.href = "/instructor/dashboard";
     }
-    alert("Login successful");
+    toast.success("Login successful");
   };
   
 

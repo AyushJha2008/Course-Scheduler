@@ -1,6 +1,7 @@
 import { useState } from "react";
 import API from "../api/axios";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function AddCourse() {
 
@@ -23,7 +24,7 @@ function AddCourse() {
 
     try {
       await API.post("/courses", formData);
-      alert("Course created successfully");
+      toast.success("Course created successfully");
 
       setFormData({
         name: "",
@@ -33,7 +34,7 @@ function AddCourse() {
       });
 
     } catch (error) {
-      console.log(error);
+      toast.error(error);
     }
     navigate("/admin")
   };

@@ -8,10 +8,13 @@ import AssignLecture from "./pages/AssignLecture";
 import Courses from "./pages/course";
 import AddInstructor from "./pages/AddInstructor";
 import Lectures from "./pages/Lectures";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
+    
     <BrowserRouter>
+    <Toaster position="bottom-left" />
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/admin" element={<AdminDashboard />} />
