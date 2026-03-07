@@ -1,38 +1,17 @@
 # Authentication Feature Documentation
 
 # credentials:
-Admin: {email:admin@gmail.com, password: admin123}
-Instructors: {ayush@gmail.com, ayush@123}, {vishal@gmail.com, vishal@123,}, {atharva@gmail.com, atharva@123}
+- Admin: {email:admin@gmail.com, password: admin123}
+- Instructors: {ayush@gmail.com, ayush@123}, {vishal@gmail.com, vishal@123,}, {atharva@gmail.com, atharva@123}
 
 # URLs:
-frontend: https://course-scheduler-ten.vercel.app/
-backend: https://course-scheduler-xouz.onrender.com/api
+- frontend: https://course-scheduler-ten.vercel.app/
+- backend: https://course-scheduler-xouz.onrender.com/api
 
 ## Overview
 
 The Authentication feature secures access by validating instructor and admin credentials. Users submit their email and password; the system verifies them and issues a JWT. This enables role-based access control across protected routes.
 
-## Architecture Overview
-
-```mermaid
-flowchart TB
-    subgraph Frontend
-        LoginPage[(Login Page)]
-    end
-    subgraph Backend
-        AuthRoute[/api/auth/login/]
-        AuthController[(login)]
-        AuthMiddleware[(isAuthenticated)]
-        InstructorModel[(Instructor Schema)]
-        DB[(MongoDB)]
-    end
-
-    LoginPage -->|POST credentials| AuthRoute
-    AuthRoute --> AuthController
-    AuthController --> InstructorModel
-    InstructorModel --> DB
-    AuthController -->|JWT| LoginPage
-```
 
 ## Component Structure
 
@@ -294,59 +273,6 @@ sequenceDiagram
 
 ---
 
-# Instructor Management Feature Documentation
-
-*(Similar structure)*
-
----
-
-# Lecture Scheduling Feature Documentation
-
-*(Similar structure)*
-
----
-
-# Middleware & Utilities
-
-## Authentication Middleware (`backend/middlewares/auth.middleware.js`)
-- `isAuthenticated`: Verifies JWT in `Authorization` header; sets `req.user`.  
-- `isAdmin`: Ensures `req.user.role === "admin"`; else 403. 
-
-## Database Connector (`backend/utils/database.utils.js`)
-- `connectDB()`: Connects to MongoDB via `process.env.MONGO_URL`. Logs status. 
-
----
-
-# Application Entry & Configuration
-
-## `backend/index.js`
-- Sets up Express with CORS (origin `http://localhost:5173`), JSON parsing, cookie parser.  
-- Mounts routes:  
-  - `/api/auth` → `auth.route.js`  
-  - `/api/instructors` → `instructor.route.js`  
-  - `/api/courses` → `course.route.js`  
-  - `/api/lectures` → `lecture.route.js`  
-- Starts server on `process.env.PORT || 3000`. 
-
-## `backend/package.json`
-Lists dependencies: Express, Mongoose, JWT, bcrypt, dotenv, cors, cookie-parser, nodemon. 
-
----
-
-# Frontend Infrastructure
-
-## API Client (`frontend/src/api/axios.js`)
-- Creates Axios instance with `baseURL: "http://localhost:8000/api"`.  
-- Attaches JWT from `localStorage` to `Authorization` header. 
-
-## Global Styles & Configs
-- ESLint config: `frontend/eslint.config.js` enforces React hooks rules.   
-- `index.html`: mounts `<div id="root">`.   
-- Tailwind & PostCSS: `tailwind.config.js`, `postcss.config.js`.    
-- Vite: `vite.config.js` enables React plugin. 
-
----
-
 # Key Classes Reference
 
 | Class/Component         | Location                                            | Responsibility                             |
@@ -362,7 +288,3 @@ Lists dependencies: Express, Mongoose, JWT, bcrypt, dotenv, cors, cookie-parser,
 | `AddCourse`            | `frontend/src/pages/AddCourse.jsx`                  | Course creation form                       |
 | `CourseCard`           | `frontend/src/components/CourseCard.jsx`            | Course display card                        |
 | `Navbar`               | `frontend/src/components/Navbar.jsx`                | Top-level navigation and logout            |
-
----
-
-This documentation covers all selected files and their relationships across frontend and backend.
