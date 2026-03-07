@@ -38,16 +38,12 @@ function Instructors() {
             </tr>
 
           </thead>
-
           <tbody>
-
             {instructors.map((inst) => (
-
               <tr
                 key={inst._id}
                 className="border-t hover:bg-gray-50"
               >
-
                 <td className="p-3">
                   {inst.name}
                 </td>
@@ -57,15 +53,11 @@ function Instructors() {
                 </td>
 
               </tr>
-
             ))}
 
           </tbody>
-
         </table>
-
       </div>
-
     </div>
   );
 }

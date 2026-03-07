@@ -1,5 +1,6 @@
 import { useState } from "react";
 import API from "../api/axios";
+import toast from "react-hot-toast";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -7,50 +8,53 @@ function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
-    const res = await API.post("/auth/login", {
-      email,
-      password,
-    });
-    localStorage.setItem("token", res.data.token);
-    if (res.data.user.role === "admin") {
-      window.location.href = "/admin";
-    } else {
-      window.location.href = "/instructor/dashboard";
+    try {
+      const res = await API.post("/auth/login", { email, password });
+      localStorage.setItem("token", res.data.token);
+      window.location.href = res.data.user.role === "admin" ? "/admin" : "/instructor/dashboard";
+    } catch (err) {
+      toast.error(err || "Login failed");
     }
-    toast.success("Login successful");
   };
-  
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
+    <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4">
+      <div className="max-w-md w-full">
+        <div className="bg-white p-10 rounded-3xl shadow-xl border border-slate-100">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-extrabold text-slate-900">Welcome Back</h2>
+            <p className="text-slate-500 mt-2">Please enter your details to sign in</p>
+          </div>
 
-      <form
-        onSubmit={handleLogin}
-        className="bg-white p-6 rounded shadow-md w-80"
-      >
-        <h2 className="text-xl font-bold mb-4">Login</h2>
+          <form onSubmit={handleLogin} className="space-y-5">
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">Email Address</label>
+              <input
+                type="email"
+                placeholder="name@company.com"
+                className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
 
-        <input
-          type="email"
-          placeholder="Email"
-          className="w-full border p-2 mb-3"
-          onChange={(e) => setEmail(e.target.value)}
-        />
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">Password</label>
+              <input
+                type="password"
+                placeholder="••••••••"
+                className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
 
-        <input
-          type="password"
-          placeholder="Password"
-          className="w-full border p-2 mb-3"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-
-        <button className="bg-blue-500 text-white px-4 py-2 w-full">
-          Login
-        </button>
-
-      </form>
-
+            <button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl shadow-lg shadow-indigo-200 transition-all transform active:scale-[0.98]">
+              Sign In
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }
