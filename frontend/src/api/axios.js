@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: " https://course-scheduler-xouz.onrender.com",
+  baseURL: " https://course-scheduler-xouz.onrender.com/api",
 });
 
 API.interceptors.request.use((req) => {
