@@ -2,7 +2,11 @@
 
 # credentials:
 Admin: {email:admin@gmail.com, password: admin123}
-Instructors: {follow this pattern || email: instructorName, password: instructorName@123 || e.g.: ayush@gmail.com, ayush@123}
+Instructors: {ayush@gmail.com, ayush@123}, {vishal@gmail.com, vishal@123,}, {atharva@gmail.com, atharva@123}
+
+# URLs:
+frontend: https://course-scheduler-ten.vercel.app/
+backend: https://course-scheduler-xouz.onrender.com/api
 
 ## Overview
 
