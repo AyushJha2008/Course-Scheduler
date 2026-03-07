@@ -12,6 +12,25 @@
 
 The Authentication feature secures access by validating instructor and admin credentials. Users submit their email and password; the system verifies them and issues a JWT. This enables role-based access control across protected routes.
 
+---
+
+# Key Classes Reference
+
+| Class/Component         | Location                                            | Responsibility                             |
+|-------------------------|-----------------------------------------------------|--------------------------------------------|
+| `login`                | `backend/controllers/auth.controller.js`            | Auth logic                                 |
+| `createCourse`         | `backend/controllers/course.controller.js`          | Course creation                            |
+| `createInstructor`     | `backend/controllers/instructor.controller.js`      | Instructor signup                          |
+| `createLecture`        | `backend/controllers/lecture.controller.js`         | Lecture assignment                         |
+| `isAuthenticated`      | `backend/middlewares/auth.middleware.js`            | JWT verification                           |
+| `connectDB`            | `backend/utils/database.utils.js`                   | DB connection                              |
+| `API`                  | `frontend/src/api/axios.js`                         | Axios instance with auth interceptor       |
+| `Login`                | `frontend/src/pages/Login.jsx`                      | Login form                                 |
+| `AddCourse`            | `frontend/src/pages/AddCourse.jsx`                  | Course creation form                       |
+| `CourseCard`           | `frontend/src/components/CourseCard.jsx`            | Course display card                        |
+| `Navbar`               | `frontend/src/components/Navbar.jsx`                | Top-level navigation and logout            |
+
+---
 
 ## Component Structure
 
@@ -111,15 +130,6 @@ sequenceDiagram
     AR-->>API: JSON
     API-->>V: stores token, redirects
 ```
-
-### Key Classes Reference
-
-| Class           | Location                                              | Responsibility                  |
-|-----------------|-------------------------------------------------------|---------------------------------|
-| `Instructor`    | `backend/models/instructor.model.js`                  | Defines user schema            |
-| `login`         | `backend/controllers/auth.controller.js`              | Handles authentication logic   |
-| `isAuthenticated`| `backend/middlewares/auth.middleware.js`              | Verifies JWT on protected routes |
-
 ---
 
 # Course Management Feature Documentation
@@ -273,18 +283,3 @@ sequenceDiagram
 
 ---
 
-# Key Classes Reference
-
-| Class/Component         | Location                                            | Responsibility                             |
-|-------------------------|-----------------------------------------------------|--------------------------------------------|
-| `login`                | `backend/controllers/auth.controller.js`            | Auth logic                                 |
-| `createCourse`         | `backend/controllers/course.controller.js`          | Course creation                            |
-| `createInstructor`     | `backend/controllers/instructor.controller.js`      | Instructor signup                          |
-| `createLecture`        | `backend/controllers/lecture.controller.js`         | Lecture assignment                         |
-| `isAuthenticated`      | `backend/middlewares/auth.middleware.js`            | JWT verification                           |
-| `connectDB`            | `backend/utils/database.utils.js`                   | DB connection                              |
-| `API`                  | `frontend/src/api/axios.js`                         | Axios instance with auth interceptor       |
-| `Login`                | `frontend/src/pages/Login.jsx`                      | Login form                                 |
-| `AddCourse`            | `frontend/src/pages/AddCourse.jsx`                  | Course creation form                       |
-| `CourseCard`           | `frontend/src/components/CourseCard.jsx`            | Course display card                        |
-| `Navbar`               | `frontend/src/components/Navbar.jsx`                | Top-level navigation and logout            |

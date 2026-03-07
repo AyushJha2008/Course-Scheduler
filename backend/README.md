@@ -24,3 +24,12 @@ Lists dependencies: Express, Mongoose, JWT, bcrypt, dotenv, cors, cookie-parser,
 - `connectDB()`: Connects to MongoDB via `process.env.MONGO_URL`. Logs status. 
 
 ---
+
+### Key Classes Reference
+
+| Class           | Location                                              | Responsibility                  |
+|-----------------|-------------------------------------------------------|---------------------------------|
+| `Instructor`    | `backend/models/instructor.model.js`                  | Defines user schema            |
+| `login`         | `backend/controllers/auth.controller.js`              | Handles authentication logic   |
+| `isAuthenticated`| `backend/middlewares/auth.middleware.js`              | Verifies JWT on protected routes |
+
