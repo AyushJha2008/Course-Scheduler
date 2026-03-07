@@ -1,5 +1,9 @@
 # Authentication Feature Documentation
 
+# credentials:
+Admin: {email:admin@gmail.com, password: admin123}
+Instructors: {follow this pattern || email: instructorName, password: instructorName@123 || e.g.: ayush@gmail.com, ayush@123}
+
 ## Overview
 
 The Authentication feature secures access by validating instructor and admin credentials. Users submit their email and password; the system verifies them and issues a JWT. This enables role-based access control across protected routes.
