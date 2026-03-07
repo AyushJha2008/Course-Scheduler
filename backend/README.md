@@ -33,3 +33,17 @@ Lists dependencies: Express, Mongoose, JWT, bcrypt, dotenv, cors, cookie-parser,
 | `login`         | `backend/controllers/auth.controller.js`              | Handles authentication logic   |
 | `isAuthenticated`| `backend/middlewares/auth.middleware.js`              | Verifies JWT on protected routes |
 
+---
+
+# Key Classes Reference
+
+| Class/Component         | Location                                            | Responsibility                             |
+|-------------------------|-----------------------------------------------------|--------------------------------------------|
+| `login`                | `backend/controllers/auth.controller.js`            | Auth logic                                 |
+| `createCourse`         | `backend/controllers/course.controller.js`          | Course creation                            |
+| `createInstructor`     | `backend/controllers/instructor.controller.js`      | Instructor signup                          |
+| `createLecture`        | `backend/controllers/lecture.controller.js`         | Lecture assignment                         |
+| `isAuthenticated`      | `backend/middlewares/auth.middleware.js`            | JWT verification                           |
+| `connectDB`            | `backend/utils/database.utils.js`                   | DB connection                              |
+
+---

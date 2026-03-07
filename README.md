@@ -14,23 +14,6 @@ The Authentication feature secures access by validating instructor and admin cre
 
 ---
 
-# Key Classes Reference
-
-| Class/Component         | Location                                            | Responsibility                             |
-|-------------------------|-----------------------------------------------------|--------------------------------------------|
-| `login`                | `backend/controllers/auth.controller.js`            | Auth logic                                 |
-| `createCourse`         | `backend/controllers/course.controller.js`          | Course creation                            |
-| `createInstructor`     | `backend/controllers/instructor.controller.js`      | Instructor signup                          |
-| `createLecture`        | `backend/controllers/lecture.controller.js`         | Lecture assignment                         |
-| `isAuthenticated`      | `backend/middlewares/auth.middleware.js`            | JWT verification                           |
-| `connectDB`            | `backend/utils/database.utils.js`                   | DB connection                              |
-| `API`                  | `frontend/src/api/axios.js`                         | Axios instance with auth interceptor       |
-| `Login`                | `frontend/src/pages/Login.jsx`                      | Login form                                 |
-| `AddCourse`            | `frontend/src/pages/AddCourse.jsx`                  | Course creation form                       |
-| `CourseCard`           | `frontend/src/components/CourseCard.jsx`            | Course display card                        |
-| `Navbar`               | `frontend/src/components/Navbar.jsx`                | Top-level navigation and logout            |
-
----
 
 ## Component Structure
 
