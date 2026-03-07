@@ -2,12 +2,29 @@
 
 # credentials:
 - Admin: {email:admin@gmail.com, password: admin123}
-- Instructors: {ayush@gmail.com, ayush@123}, {vishal@gmail.com, vishal@123,}, {atharva@gmail.com, atharva@123}
+- Instructors:
+  - ayush@gmail.com, ayush@123
+  - vishal@gmail.com, vishal@123 
+  - atharva@gmail.com, atharva@123
 
 # URLs:
 - frontend: https://course-scheduler-ten.vercel.app/
 - backend: https://course-scheduler-xouz.onrender.com/api
 
+# Routes:
+## Amin routes:
+- Login page: https://course-scheduler-ten.vercel.app/
+- Admin Dashboard: https://course-scheduler-ten.vercel.app/admin
+- Add Instructor: https://course-scheduler-ten.vercel.app/admin/add-instructor
+- Instructors List: https://course-scheduler-ten.vercel.app/admin/instructors
+- Add Course: https://course-scheduler-ten.vercel.app/admin/add-course
+- List of all Courses: https://course-scheduler-ten.vercel.app/admin/courses
+- Assign Lecture to course: https://course-scheduler-ten.vercel.app/admin/assign-lecture
+- List of Lectures of all courses: https://course-scheduler-ten.vercel.app/admin/lectures
+
+## Instructor Routes:
+- Instructor Dashboard: https://course-scheduler-ten.vercel.app/instructor/dashboard
+---
 ## Overview
 
 The Authentication feature secures access by validating instructor and admin credentials. Users submit their email and password; the system verifies them and issues a JWT. This enables role-based access control across protected routes.
