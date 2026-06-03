@@ -13,7 +13,7 @@ function Login() {
       localStorage.setItem("token", res.data.token);
       window.location.href = res.data.user.role === "admin" ? "/admin" : "/instructor/dashboard";
     } catch (err) {
-      toast.error(err || "Login failed");
+      toast.error(err.response?.data?.message || err.message || "Login failed");
     }
   };
 

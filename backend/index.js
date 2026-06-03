@@ -9,6 +9,7 @@ import lectureRoutes  from "./routes/lecture.route.js";
 import authRoutes from "./routes/auth.route.js";
 dotenv.config({});
 
+
 const app = express();
 
 //middleware
@@ -17,7 +18,7 @@ app.use(express.urlencoded({extended:true}))
 app.use(cookieParser());
 const allowedOrigins = [
     "https://course-scheduler-ten.vercel.app",
-    "http://localhost:5173"
+    "http://localhost:5174"
 ];
 const corsOptions = {
     origin: function (origin, callback) {
