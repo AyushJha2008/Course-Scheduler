@@ -1,19 +1,45 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import API from "../api/axios";
 import toast from "react-hot-toast";
+import { decodeToken } from "../components/ProtectedRoute";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const decoded = decodeToken(token);
+    if (decoded) {
+      if (decoded.role === "admin") {
+        navigate("/admin", { replace: true });
+      } else {
+        navigate("/instructor/dashboard", { replace: true });
+      }
+    }
+  }, [navigate]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const res = await API.post("/auth/login", { email, password });
       localStorage.setItem("token", res.data.token);
-      window.location.href = res.data.user.role === "admin" ? "/admin" : "/instructor/dashboard";
+      
+      const role = res.data.user.role;
+      toast.success("Welcome back, " + res.data.user.name + "!");
+      if (role === "admin") {
+        navigate("/admin", { replace: true });
+      } else {
+        navigate("/instructor/dashboard", { replace: true });
+      }
     } catch (err) {
-      toast.error(err.response?.data?.message || err.message || "Login failed");
+      if (err.message === "Network Error") {
+        toast.error("Network Error: Could not connect to backend server. Please verify the backend is running on port 8000.");
+      } else {
+        toast.error(err.response?.data?.message || err.message || "Login failed");
+      }
     }
   };
 
@@ -33,6 +59,7 @@ function Login() {
                 type="email"
                 placeholder="name@company.com"
                 className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+                value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
@@ -44,6 +71,7 @@ function Login() {
                 type="password"
                 placeholder="••••••••"
                 className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+                value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />

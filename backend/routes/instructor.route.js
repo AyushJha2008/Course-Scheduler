@@ -9,9 +9,9 @@ import { isAdmin, isAuthenticated } from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
 // create instructor
-router.post("/", createInstructor, isAdmin, isAuthenticated);
+router.post("/", isAuthenticated, isAdmin, createInstructor);
 // get all instructors
-router.get("/", getAllInstructors, isAdmin, isAuthenticated);
+router.get("/", isAuthenticated, isAdmin, getAllInstructors);
 // get lectures of instructor
 router.get("/:id/lectures",isAuthenticated, isAdmin, getInstructorLectures);
 router.get("/my-lectures", isAuthenticated, getMyLectures)

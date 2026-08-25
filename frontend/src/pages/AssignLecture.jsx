@@ -49,12 +49,10 @@ function AssignLecture() {
         lectureDate: ""
       });
 
+      navigate("/admin");
     } catch (error) {
-
       toast.error(error.response?.data?.message || "Error assigning lecture");
-
     }
-    navigate("/admin")
   };
 
   return (

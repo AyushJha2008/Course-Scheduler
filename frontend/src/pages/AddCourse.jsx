@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 function AddCourse() {
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -33,13 +34,11 @@ function AddCourse() {
         image: ""
       });
 
+      navigate("/admin");
     } catch (error) {
-      toast.error(error);
+      toast.error(error.response?.data?.message || error.message || "Error creating course");
     }
-    navigate("/admin")
   };
-
-  const navigate = useNavigate()
 
   return (
     <div className="p-4 md:p-6 lg:p-8">

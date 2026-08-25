@@ -23,9 +23,7 @@ function AddInstructor() {
     e.preventDefault();
 
     try {
-
       await API.post("/instructors", formData);
-
       toast.success("Instructor created successfully");
 
       setFormData({
@@ -34,11 +32,11 @@ function AddInstructor() {
         password: ""
       });
 
+      navigate("/admin");
     } catch (error) {
       console.log(error);
-      toast.error("Error creating instructor");
+      toast.error(error.response?.data?.message || "Error creating instructor");
     }
-    navigate("/admin")
   };
 
   return (

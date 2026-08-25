@@ -48,11 +48,14 @@ export const getInstructorLectures = async (req, res) => {
 };
 
 export const getMyLectures = async (req, res) => {
+  try {
+    const instructorId = req.user.id;
+    const lectures = await Lecture.find({
+      instructor: instructorId
+    }).populate("course", "name");
 
-  const instructorId = req.user.id;
-  const lectures = await Lecture.find({
-    instructor: instructorId
-  }).populate("course", "name");
-
-  res.json(lectures);
+    res.json(lectures);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };

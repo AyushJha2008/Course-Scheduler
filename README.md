@@ -1,114 +1,129 @@
-# Authentication Feature Documentation
+# Course Scheduler
 
-# credentials:
-- Admin: {email:admin@gmail.com, password: admin123}
-- Instructors:
-  - ayush@gmail.com, ayush@123
-  - vishal@gmail.com, vishal@123 
-  - atharva@gmail.com, atharva@123
-
-# URLs:
-- frontend: https://course-scheduler-ten.vercel.app/
-- backend: https://course-scheduler-xouz.onrender.com/api
-
-# Routes:
-## Amin routes:
-- Login page: https://course-scheduler-ten.vercel.app/
-- Admin Dashboard: https://course-scheduler-ten.vercel.app/admin
-- Add Instructor: https://course-scheduler-ten.vercel.app/admin/add-instructor
-- Instructors List: https://course-scheduler-ten.vercel.app/admin/instructors
-- Add Course: https://course-scheduler-ten.vercel.app/admin/add-course
-- List of all Courses: https://course-scheduler-ten.vercel.app/admin/courses
-- Assign Lecture to course: https://course-scheduler-ten.vercel.app/admin/assign-lecture
-- List of Lectures of all courses: https://course-scheduler-ten.vercel.app/admin/lectures
-
-## Instructor Routes:
-- Instructor Dashboard: https://course-scheduler-ten.vercel.app/instructor/dashboard
----
-## Overview
-
-The Authentication feature secures access by validating instructor and admin credentials. Users submit their email and password; the system verifies them and issues a JWT. This enables role-based access control across protected routes.
+A modern web application to manage courses, instructors, and assign lectures with clash prevention mechanisms. Built using React, Node.js, Express, and MongoDB.
 
 ---
 
+## 🚀 Quick Start
 
-## Component Structure
+### ⚙️ Prerequisites
+Ensure you have [Node.js](https://nodejs.org/) installed (v16+ recommended).
 
-### 1. Presentation Layer
+### 📂 Repository Structure
+- `backend/`: Node.js + Express API server.
+- `frontend/`: React + Vite client-side single page app.
 
-#### **Login Page** (`frontend/src/pages/Login.jsx`)
-- Purpose: Renders a form for email and password.
-- Key State:  
-  - `email` (string)  
-  - `password` (string)
-- Key Methods:  
-  - `handleLogin(e)`: Calls `API.post("/auth/login")`, stores token, redirects based on role.
+---
 
-### 2. Business Layer
+## 🛠️ Installation & Setup
 
-#### **Auth Controller** (`backend/controllers/auth.controller.js`)
-- Purpose: Validates user credentials and generates JWT.
-- Key Steps:  
-  1. Retrieve `{ email, password }` from `req.body`.  
-  2. Lookup user via `Instructor.findOne({ email })`.  
-  3. Compare passwords with `bcrypt.compare`.  
-  4. Sign JWT with `{ id, role }`.  
-  5. Respond with `{ message, token, user }`.  
-- Error Handling:  
-  - 400 if invalid credentials.  
-  - 500 on server error. 
+### 1. Backend Setup
+1. Open a terminal and navigate to the backend folder:
+   ```bash
+   cd backend
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Set up environment variables. Create a `.env` file in the `backend/` directory:
+   ```env
+   MONGO_URL=mongodb+srv://<username>:<password>@cluster.mongodb.net/CourseScheduler
+   PORT=8000
+   JWT_SECRET=sjfklfvkvliifsdkud
+   ```
+4. Start the backend development server:
+   ```bash
+   npm run dev
+   ```
+   *Note: On startup, if the database has no users, it will auto-seed the default administrator and instructor credentials listed below.*
 
-### 3. Data Access Layer
+### 2. Frontend Setup
+1. Open another terminal and navigate to the frontend folder:
+   ```bash
+   cd frontend
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the frontend Vite development server:
+   ```bash
+   npm run dev
+   ```
+4. Open the application in your browser at `http://localhost:5173`.
 
-*All data access occurs via Mongoose models; no separate DAL classes.*
+---
 
-### 4. Data Models
+## 🔐 Credentials & Accounts
 
-#### **Instructor** (`backend/models/instructor.model.js`)
-| Property | Type   | Details                            |
-|----------|--------|------------------------------------|
-| `name`   | String | Required                           |
-| `email`  | String | Required, unique                   |
-| `password`| String| Required, hashed via bcrypt       |
-| `role`   | String | Enum: `"admin"`, `"instructor"`; default `"instructor"` |
+When the backend runs for the first time, it seeds the database with the following default accounts. Use them to log in:
 
-Timestamps are enabled. 
+### 👤 Administrator
+- **Email:** `admin@gmail.com`
+- **Password:** `admin123`
+- **Role:** `admin` (Can create courses, add instructors, and assign lectures)
 
-### 5. API Integration
+### 👨‍🏫 Instructors
+- **Email:** `ayush@gmail.com` | **Password:** `ayush@123`
+- **Email:** `vishal@gmail.com` | **Password:** `vishal@123`
+- **Email:** `atharva@gmail.com` | **Password:** `atharva@123`
+- **Role:** `instructor` (Can view assigned lecture schedules)
 
-#### POST /api/auth/login
+---
 
-```api
-{
-  "title": "User Login",
-  "description": "Authenticate instructor/admin and issue JWT",
-  "method": "POST",
-  "baseUrl": "http://localhost:8000",
-  "endpoint": "/api/auth/login",
-  "headers": [
-    { "key": "Content-Type", "value": "application/json", "required": true }
-  ],
-  "bodyType": "json",
-  "requestBody": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"securePass123\"\n}",
-  "responses": {
-    "200": {
-      "description": "Login successful",
-      "body": "{\n  \"message\": \"Login successful\",\n  \"token\": \"<jwt>\",\n  \"user\": { \"id\": \"<id>\", \"name\": \"<name>\", \"email\": \"<email>\", \"role\": \"admin\" }\n}"
-    },
-    "400": {
-      "description": "Invalid credentials",
-      "body": "{ \"message\": \"Invalid email or password\" }"
-    },
-    "500": {
-      "description": "Server error",
-      "body": "{ \"message\": \"Error message\" }"
-    }
-  }
-}
-```
+## 🌐 URLs & Routing
 
-### Feature Flow
+### Local URLs:
+- **Frontend App:** `http://localhost:5173`
+- **Backend API:** `http://localhost:8000/api`
 
+### Production URLs:
+- **Frontend App:** `https://course-scheduler-ten.vercel.app/`
+- **Backend API:** `https://course-scheduler-xouz.onrender.com/api`
+
+### 🗺️ Admin Pages (Protected)
+- **Overview Dashboard:** `/admin` (Real-time count of courses, instructors, and scheduled lectures)
+- **Add Instructor:** `/admin/add-instructor` (Register new instructors)
+- **Instructors List:** `/admin/instructors` (List of registered instructors)
+- **Add Course:** `/admin/add-course` (Create new courses)
+- **Courses List:** `/admin/courses` (View all courses)
+- **Assign Lecture:** `/admin/assign-lecture` (Schedule a lecture for an instructor on a specific date)
+- **Lectures List:** `/admin/lectures` (View all assigned lectures)
+
+### 🗺️ Instructor Pages (Protected)
+- **Instructor Dashboard:** `/instructor/dashboard` (View calendar/schedule of assigned lectures)
+
+---
+
+## 🏗️ Architecture & Component Design
+
+### 1. Presentation Layer (React + React Router 7 + Tailwind CSS)
+- **ProtectedRoute (`frontend/src/components/ProtectedRoute.jsx`):** Secures endpoints based on roles (`admin` or `instructor`). Handles token decoding, expiry checks, and automatic navigation redirection.
+- **AdminLayout (`frontend/src/components/AdminLayout.jsx`):** Shared responsive sidebar layout rendering the dashboard navigation across all administrative sub-pages.
+- **Login (`frontend/src/pages/Login.jsx`):** Multi-role authentication entry. Redirects authenticated users automatically.
+- **CourseCard (`frontend/src/components/CourseCard.jsx`):** Renders course details dynamically.
+
+### 2. Business Logic & Controllers (Express)
+- **Auth Controller (`backend/controllers/auth.controller.js`):** Validates credentials, compares passwords using `bcrypt`, and generates JWT.
+- **Course Controller (`backend/controllers/course.controller.js`):** Creates courses and fetches all courses.
+- **Instructor Controller (`backend/controllers/instructor.controller.js`):** Regulates instructor creation, fetch, and personal schedule.
+- **Lecture Controller (`backend/controllers/lecture.controller.js`):** Manages lecture scheduling, verifying schedule conflicts before assigning.
+
+### 3. Middleware
+- **isAuthenticated (`backend/middlewares/auth.middleware.js`):** Verifies the Bearer JWT in the request header.
+- **isAdmin (`backend/middlewares/auth.middleware.js`):** Restricts administrative actions to authorized accounts.
+
+### 4. Database Models (Mongoose)
+- **Instructor (`backend/models/instructor.model.js`):** Represents users (Admin or Instructor).
+- **Course (`backend/models/course.model.js`):** Represents classes/courses.
+- **Lecture (`backend/models/lecture.model.js`):** Links Course, Instructor, and a specific Date with a unique constraint index.
+
+---
+
+## 🔄 Sequence Flows
+
+### User Login Flow
 ```mermaid
 sequenceDiagram
     participant U as User
@@ -130,136 +145,8 @@ sequenceDiagram
     AR-->>API: JSON
     API-->>V: stores token, redirects
 ```
----
 
-# Course Management Feature Documentation
-
-## Overview
-
-The Course Management feature allows admins to create new courses and retrieve existing ones. Courses include metadata like name, level, description, and optional image.
-
-## Architecture Overview
-
-```mermaid
-flowchart TB
-    subgraph Frontend
-        AddCoursePage[(AddCourse)]
-        CoursesPage[(Courses)]
-    end
-    subgraph Backend
-        CourseRoute[/api/courses/]
-        CourseController[(createCourse, getAllCourses)]
-        CourseModel[(Course Schema)]
-        AuthMiddleware[(isAuthenticated, isAdmin)]
-        DB[(MongoDB)]
-    end
-
-    AddCoursePage -->|POST data| CourseRoute
-    CoursesPage -->|GET| CourseRoute
-    CourseRoute --> AuthMiddleware
-    CourseRoute --> CourseController
-    CourseController --> CourseModel
-    CourseModel --> DB
-    CourseController -->|JSON| Pages
-```
-
-## Component Structure
-
-### 1. Presentation Layer
-
-#### **AddCourse** (`frontend/src/pages/AddCourse.jsx`)
-- Purpose: Form to enter `name`, `level`, `description`, `image`.
-- State: `formData` with fields above.
-- Methods:  
-  - `handleChange(e)`: Updates form state.  
-  - `handleSubmit(e)`: Posts to `/courses`, shows toast, redirects. 
-
-#### **Courses** (`frontend/src/pages/course.jsx`)
-- Purpose: Displays a grid of courses.
-- State: `courses` array.
-- Methods:  
-  - `fetchCourses()`: GET `/courses` and set state. 
-
-#### **CourseCard** (`frontend/src/components/CourseCard.jsx`)
-- Props: `{ course }`.
-- Renders card with image, name, level, description.  
-
-### 2. Business Layer
-
-#### **Course Controller** (`backend/controllers/course.controller.js`)
-| Method         | Description                                | Returns         |
-|----------------|--------------------------------------------|-----------------|
-| `createCourse` | Validates required fields and creates DB record | Created course object |
-| `getAllCourses`| Fetches all courses                       | Array of courses |
-
-Error handling: 400 on missing fields; 500 on DB errors. 
-
-### 3. Data Models
-
-#### **Course** (`backend/models/course.model.js`)
-| Property    | Type    | Details                                    |
-|-------------|---------|--------------------------------------------|
-| `name`      | String  | Required                                   |
-| `level`     | String  | Enum: Beginner, Intermediate, Advanced; required |
-| `description`| String | Optional                                   |
-| `image`     | String  | URL optional                               |
-
-Timestamps enabled. 
-
-### 4. API Integration
-
-#### POST /api/courses
-
-```api
-{
-  "title": "Create Course",
-  "description": "Add a new course; admin only",
-  "method": "POST",
-  "baseUrl": "http://localhost:8000",
-  "endpoint": "/api/courses",
-  "headers": [
-    { "key": "Authorization", "value": "Bearer <token>", "required": true }
-  ],
-  "bodyType": "json",
-  "requestBody": "{\n  \"name\": \"Algebra I\",\n  \"level\": \"Beginner\",\n  \"description\": \"Introductory algebra\",\n  \"image\": \"http://...\"\n}",
-  "responses": {
-    "201": {
-      "description": "Course created",
-      "body": "{ \"_id\": \"<id>\", \"name\": \"Algebra I\", ... }"
-    },
-    "400": {
-      "description": "Missing fields",
-      "body": "{ \"message\": \"course name and level are required\" }"
-    },
-    "401": { "description": "No token provided" },
-    "403": { "description": "Admin access required" }
-  }
-}
-```
-
-#### GET /api/courses
-
-```api
-{
-  "title": "List Courses",
-  "description": "Retrieve all courses; authenticated users",
-  "method": "GET",
-  "baseUrl": "http://localhost:8000",
-  "endpoint": "/api/courses",
-  "headers": [
-    { "key": "Authorization", "value": "Bearer <token>", "required": true }
-  ],
-  "responses": {
-    "200": {
-      "description": "List of courses",
-      "body": "[{ \"_id\": \"...\", \"name\": \"...\" }, ...]"
-    }
-  }
-}
-```
-
-### Feature Flow
-
+### Course Creation Flow
 ```mermaid
 sequenceDiagram
     participant U as Admin
@@ -280,6 +167,3 @@ sequenceDiagram
     CR-->>API: response
     API-->>V: success toast & redirect
 ```
-
----
-

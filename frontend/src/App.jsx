@@ -9,29 +9,38 @@ import Courses from "./pages/course";
 import AddInstructor from "./pages/AddInstructor";
 import Lectures from "./pages/Lectures";
 import { Toaster } from "react-hot-toast";
+import ProtectedRoute from "./components/ProtectedRoute";
+import AdminLayout from "./components/AdminLayout";
 
 function App() {
   return (
-    
     <BrowserRouter>
-    <Toaster position="bottom-left" />
+      <Toaster position="bottom-left" />
       <Routes>
+        {/* Public Routes */}
         <Route path="/" element={<Login />} />
-        <Route path="/admin" element={<AdminDashboard />} />
-        <Route
-          path="/instructor"
-          element={<InstructorDashboard />}
-        />
-        <Route path="/admin/instructors" element={<Instructors />} />
-        <Route path="/admin/add-course" element={<AddCourse />} />
-        <Route path="/admin/assign-lecture" element={<AssignLecture />} />
-        <Route
-          path="/instructor/dashboard"
-          element={<InstructorDashboard />}
-        />
-        <Route path="/admin/courses" element={<Courses />} />
-        <Route path="/admin/add-instructor" element={<AddInstructor />} />
-        <Route path="/admin/lectures" element={<Lectures />} />
+
+        {/* Admin Routes */}
+        <Route element={<ProtectedRoute requiredRole="admin" />}>
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<AdminDashboard />} />
+            <Route path="instructors" element={<Instructors />} />
+            <Route path="add-instructor" element={<AddInstructor />} />
+            <Route path="courses" element={<Courses />} />
+            <Route path="add-course" element={<AddCourse />} />
+            <Route path="assign-lecture" element={<AssignLecture />} />
+            <Route path="lectures" element={<Lectures />} />
+          </Route>
+        </Route>
+
+        {/* Instructor Routes */}
+        <Route element={<ProtectedRoute requiredRole="instructor" />}>
+          <Route path="/instructor" element={<InstructorDashboard />} />
+          <Route path="/instructor/dashboard" element={<InstructorDashboard />} />
+        </Route>
+
+        {/* Fallback route */}
+        <Route path="*" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );
